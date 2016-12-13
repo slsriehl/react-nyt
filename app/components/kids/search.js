@@ -3,11 +3,18 @@ const React = require('react'),
 let Results = React.createClass({
   getInitialState: function() {
     return {
+      key: "77477d08cc0a4b84b344710a4dccb09d",  
+      q: "", 
+      sort: "newest",
+      hl: true,
+      fl: "web_url, abstract, headline, byline, pub_date",
+      begin_date: "18700101",
+      end_date: "20161213"
     };
   }, 
 
   componentDidMount: function(prevProps, prevState) {
-    this.props.ArticleSearch();
+    this.ArticleSearch();
   },
 
   getQ: function(prevProps, prevState) {
@@ -40,12 +47,12 @@ let Results = React.createClass({
   }, 
 
   render: function() {
-    return (		
+    return (
 
 		<div className="container">
       <div className="row">
         <div className="col col-sm-12">
-              Search Results
+              Search Articles
         </div>{/* end col-sm-12 */}
       </div>{/* end row */}
       <div className="row">
@@ -62,17 +69,3 @@ let Results = React.createClass({
     );
   }
 });
-
-
-
-{/* const viewArticles = this.state.articles.map((item, i) => {
-      return <div>
-        <h1>{item.name.first}</h1>
-        <span>{item.cell}, {item.email}</span>
-      </div>
-    });
-
-    return <div id="layout-content" className="layout-content-wrapper">
-      <div className="panel-list">{viewArticles}</div>
-    </div>
-    */}

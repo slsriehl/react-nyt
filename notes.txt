@@ -1,0 +1,48 @@
+1.  write the mongoose model and set up the server to route to mongoose.  set up mlab in heroku.
+2.  create search react component and mount it to the index page.
+
+main
+	functions:
+		front end GET NYT
+		front end POST mongo
+		front end GET mongo
+		front end DELETE mongo
+	states:
+		articles from NYT GET
+		articles from mongo GET and DELETE
+
+search
+	props functions:
+		front end NYT GET
+	props states:
+		articles from NYT GET
+	states: query parameters for front end NYT GET
+
+results
+	props functions:
+		front end mongo POST
+		front end mongo DELETE
+	props states:
+		articles from NYT GET
+		articles from mongo GET & DELETE (for button)
+
+history
+	props functions:
+		front end mongo GET
+		front end mongo DELETE
+	props states:
+		articles from mongo GET & DELETE
+
+
+
+3.  GET nyt api console logging and passing in prop function from search to the main page and the main page to results.
+4. POST selected results to mongo via the function in results.  toggle delete button.
+5.  DELETE write callback in main and send as prop to results and history.  update state of 
+
+// / - will load your single HTML page (with ReactJS) in public/index.html
+
+// /api/saved (get) - your components will use this to query MongoDB for all saved articles
+
+// /api/saved (post) - your components will use this to save an article to the database
+
+// /api/saved (delete) - your components will use this to delete a saved article in the database
