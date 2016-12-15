@@ -25,6 +25,10 @@ app.use(express.static("./public"));
 mongoose.connect("mongodb://localhost/nyt_db");
 var db = mongoose.connection;
 
+// mongolab-octagonal-86909 as MONGODB_URI
+//MONGODB_URI: mongodb://heroku_zxpp617k:tsh16figu9pkbvr4e280bmk13t@ds133378.mlab.com:33378/heroku_zxpp617k
+
+
 db.on("error", function(err) {
   console.log("Mongoose Error: ", err);
 });
@@ -45,10 +49,6 @@ app.get("/", function(req, res) {
 
 // This is the route we will send GET requests to retrieve our most recent click data.
 // We will call this route the moment our page gets rendered
-
-app.get('/api', function(req, res) {
-  //query nyt api for articles
-});
 
 //show all saved articles
 app.get('/api/saved', function(req, res) {

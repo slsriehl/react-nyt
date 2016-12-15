@@ -18,7 +18,11 @@ let helpers = {
         begin_date:  begin_date, 
         end_date:    end_date
       });
-    return axios.get('https://api.nytimes.com/svc/search/v2/articlesearch.json?' + data);
+    return axios.get('https://api.nytimes.com/svc/search/v2/articlesearch.json?' + data, {
+      headers: { 
+        'Access-Control-Allow-Origin': '*'
+      }
+    });
   }
 }
 module.exports = helpers;
