@@ -1,71 +1,102 @@
-const React = require('react'),
+const React = require('react');
 
-let Results = React.createClass({
+
+let Search = React.createClass({
   getInitialState: function() {
     return {
-      key: "77477d08cc0a4b84b344710a4dccb09d",  
-      q: "", 
-      sort: "newest",
-      hl: true,
-      fl: "web_url, abstract, headline, byline, pub_date",
-      begin_date: "18700101",
-      end_date: "20161213"
+    	q: "",
+    	begin_date: "",
+    	end_date: ""
     };
-  }, 
-
-  componentDidMount: function(prevProps, prevState) {
-    this.ArticleSearch();
-  },
-
-  getQ: function(prevProps, prevState) {
-    let query = ;
-    let begin_date = ;
-    let end_date = ;
-    this.setState({q: query, begin_date: begin_date, end_date: end_date});
   }, 
 
 //setState q from input
 
-  ArticleSearch: function() {
-    let data = {
-      key:         this.state.key, 
-      q:           this.state.q, 
-      sort:        this.state.sort, 
-      hl:          this.state.hl, 
-      fl:          this.state.fl, 
-      begin_date:  this.state.begin_date, 
-      end_date:    this.state.end_date
-    }
-    return $.getJSON('https://randomuser.me/api/')
-      .then((data) => {
-        this.setState({articles: data.results});
-      });
-  }, 
-
-  Reset: function() {
+  
+  _reset: function() {
   {/* reset inputs */}
   }, 
+  _handleChangeQ: function(event) {
+  	this.setState({
+  		q: event.target.value,
+  	});
+  },
+  _handleChangeB_D: function(event) {
+  	this.setState({
+  		begin_date: event.target.value
+  	});
+  },
+	_handleChangeE_D: function(event) {
+  	this.setState({
+  		end_date: event.target.value
+  	});
+  },
+
+
+  _handleSubmit: function() {
+  	this.props._nytGet(this.state.q, this.state.begin_date, this.state.end_date);
+  	this.setState({
+  		q: "",
+  		begin_date: "",
+  		end_date: ""
+  	});
+  },
 
   render: function() {
-    return (
+    return (		
 
 		<div className="container">
       <div className="row">
         <div className="col col-sm-12">
-              Search Articles
+              Search Results
         </div>{/* end col-sm-12 */}
       </div>{/* end row */}
       <div className="row">
         <div className="col col-sm-12">
-          <label for="query">Search for<input type="text" id="query" /></label>
-          <label for="begin-date">Earliest Date (optional)<input type="text" id="begin-date" /></label>
-          <label for="end-date">Latest Date (optional)<input type="text" id="end-date" /></label>
+          <label htmlFor="query">Search for
+          <input 
+          	value={this.state.q}
+          	type="text" 
+          	id="query" 
+          	onChange={this._handleChangeQ}
+          /></label>
+          <label htmlFor="begin-date">Earliest Date (optional)
+          <input 
+          	value={this.state.begin_date}
+          	type="text" 
+          	id="begin-date" 
+          	onChange={this._handleChangeB_D}
+          /></label>
+          <label htmlFor="end-date">Latest Date (optional)
+          <input 
+          	value={this.state.end_date}
+          	type="text" 
+          	id="end-date" 
+          	onChange={this._handleChangeE_D}
+          /></label>
 
-          <button type="button" className="btn btn-large" onClick={this.props.ArticleSearch}>Search Articles</button><br />
-          <button type="button" className="btn btn-large" onClick={this.Reset}>Clear Form</button><br />
+          <button type="button" className="btn btn-large" onClick={this.props._nytGet}>Search Articles</button><br />
+          <button type="button" className="btn btn-large" onClick={this._reset}>Clear Form</button><br />
         </div>{/* end col-sm-12 */}
       </div>{/* end row */}
-    </div>{/* end container */}
+      {/* end container */}
+    </div>
     );
   }
 });
+
+
+
+{/* const viewArticles = this.state.articles.map((item, i) => {
+      return <div>
+        <h1>{item.name.first}</h1>
+        <span>{item.cell}, {item.email}</span>
+      </div>
+    });
+
+    return <div id="layout-content" className="layout-content-wrapper">
+      <div className="panel-list">{viewArticles}</div>
+    </div>
+    */}
+
+module.exports 	= Search;

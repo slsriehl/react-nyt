@@ -1,4 +1,6 @@
-const React   = require('react'), 
+const React   = require('react'),
+      axios   = require('axios'), 
+      helpers = require('./utils/helpers'), 
       Search  = require('./kids/search'), 
       Results = require('./kids/results'),
       History = require('./kids/history');
@@ -9,53 +11,45 @@ let Main = React.createClass({
     return {
       articles_nyt: [],
       articles_mongo:[],
-      q: "", 
-      begin_date: "18700101",
-      end_date: "20161213", 
-      key: "77477d08cc0a4b84b344710a4dccb09d",  
-      sort: "newest",
-      hl: true,
-      fl: "web_url,abstract,headline,byline,pub_date"
     };
   }, 
-
-  getQ: function(prevProps, prevState) {
-    let q = ;
-    let begin_date = ;
-    let end_date = ;
-    this.setState({q, begin_date, end_date});
-  }, 
-
-//setState q from input
-
-  ArticleSearch: function() {
-    let data = {
-      key:         this.state.key, 
-      q:           this.state.q, 
-      sort:        this.state.sort, 
-      hl:          this.state.hl, 
-      fl:          this.state.fl, 
-      begin_date:  this.state.begin_date, 
-      end_date:    this.state.end_date
-    }
-    return $.getJSON(`https://api.nytimes.com/svc/search/v2/articlesearch.json?${data}`)
-      .then((result) => {
-        for(let i in result.docs) {
-          this.setState({articles_nyt: [{
-            web_url: result.docs[i].web_url,
-            abstract: result.docs[i].abstract,
-            headline: result.docs[i].headline.main,
-            byline: result.docs[i].byline.original,
-            pub_date: result.docs[i].pub_date
-          }]
+  _nytGet: function(q, begin_date, end_date) {
+    helpers._nytGet(q, begin_date, end_date)
+    .then((result) => {
+        if(result.docs) {
+          for(let i in result.docs) {
+            this.setState({articles_nyt: [{
+              web_url:  result.docs[i].web_url,
+              abstract: result.docs[i].abstract,
+              headline: result.docs[i].headline.main,
+              byline:   result.docs[i].byline.original,
+              pub_date: result.docs[i].pub_date
+              }]
+            });
+          }
+          console.log(this.state.articles_nyt);
+        } else {
+          console.log("no data returned");
+          return "no data returned";
         }
-      });
-    });
-  }, 
 
-  Reset: function() {
-  {/* reset inputs */}
-  }, 
+      });
+  },
+
+  _mongoPost: function() {
+    return axios.post('/api/saved')
+    .then();
+  },
+
+  _mongoGet: function() {
+    return axios.get('/api/saved')
+    .then();
+  },
+
+  _mongoDelete: function() {
+    return axios.delete('/api/saved')
+    .then();
+  },
 
   render: function() {
     return (
@@ -68,11 +62,25 @@ let Main = React.createClass({
       </div>{/* end row */}
     </div>{/* end inner container */}
 
-    <Search articles={this.state.articles} />
-    <Results />
-    <History />
-        
-  </div>{/* end overall container */}
+    <Search 
+      articles_nyt={this.state.articles_nyt} 
+      _nytGet={this._nytGet} 
+    />
+    {/*<Results 
+      articles_nyt={this.state.articles_nyt}
+      articles_mongo={this.state.articles_mongo}
+      _mongoPost={this._mongoPost}
+      _mongoDelete={this._mongoDelete}
+    />
+    <History 
+      articles_mongo={this.state.articles_mongo}
+      _mongoDelete={this._mongoDelete}
+      _mongoGet={this._mongoGet}
+    />*/}
+  {/* end overall container */}      
+  </div>
     );
   }
 });
+
+module.exports  = Main;

@@ -40,7 +40,7 @@ db.once("open", function() {
 
 // Main "/" Route. This will redirect the user to our rendered React application
 app.get("/", function(req, res) {
-  res.sendFile(__dirname + "/public/index.html");
+  res.sendFile(__dirname + "/index.html");
 });
 
 // This is the route we will send GET requests to retrieve our most recent click data.

@@ -1,9 +1,8 @@
-// Include the Main React Dependencies
-var React = require("react");
-var ReactDOM = require("react-dom");
+// Include the Main React Dependencies and component
+const React 		= require("react"), 
+			ReactDOM 	= require("react-dom"),
+			Main = require("./components/main");
 
-// Include the main Parent Component
-var Parent = require("./components/search");
 
-// This code here allows us to render our main component (in this case Parent)
-ReactDOM.render(<Search />, document.getElementById("app"));
+// This code here allows us to render our main component
+ReactDOM.render(<Main />, document.getElementById("app"));

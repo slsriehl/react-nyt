@@ -3,6 +3,7 @@
 
 main
 	functions:
+		get query
 		front end GET NYT
 		front end POST mongo
 		front end GET mongo
@@ -13,10 +14,12 @@ main
 
 search
 	props functions:
+		get query
 		front end NYT GET
 	props states:
 		articles from NYT GET
 	states: query parameters for front end NYT GET
+	functions: reset form
 
 results
 	props functions:
