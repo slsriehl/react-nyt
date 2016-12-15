@@ -1,5 +1,5 @@
 const React   = require('react'),
-      axios   = require('axios'), 
+      axios   = require('axios'),  
       helpers = require('./utils/helpers'), 
       Search  = require('./kids/search'), 
       Results = require('./kids/results'),
@@ -9,31 +9,30 @@ const React   = require('react'),
 let Main = React.createClass({
   getInitialState: function() {
     return {
-      articles_nyt: [],
-      articles_mongo:[],
+      articlesNyt: [],
+      articlesMongo:[]
     };
   }, 
   _nytGet: function(q, begin_date, end_date) {
+    console.log(this.state.articlesNyt);
     helpers._nytGet(q, begin_date, end_date)
-    .then((result) => {
-        if(result.docs) {
-          for(let i in result.docs) {
-            this.setState({articles_nyt: [{
-              web_url:  result.docs[i].web_url,
-              abstract: result.docs[i].abstract,
-              headline: result.docs[i].headline.main,
-              byline:   result.docs[i].byline.original,
-              pub_date: result.docs[i].pub_date
-              }]
-            });
-          }
-          console.log(this.state.articles_nyt);
-        } else {
-          console.log("no data returned");
-          return "no data returned";
+    .then(function cbres(result) {
+      let nytRes = result.data.response.docs;
+      console.log(nytRes);
+        for(let i in nytRes) {
+          this.setState({articlesNyt: 
+            this.state.articlesNyt.concat({
+              web_url:  nytRes[i].web_url,
+              abstract: nytRes[i].abstract,
+              headline: nytRes[i].headline.main,
+              byline:   nytRes[i].byline.original,
+              pub_date: nytRes[i].pub_date
+            })
+          });
         }
-
-      });
+      }.bind(this)).then(function cblog() {
+            console.log(this.state.articlesNyt)
+          }.bind(this));
   },
 
   _mongoPost: function() {
@@ -62,18 +61,17 @@ let Main = React.createClass({
       </div>{/* end row */}
     </div>{/* end inner container */}
 
-    <Search 
-      articles_nyt={this.state.articles_nyt} 
+    <Search  
       _nytGet={this._nytGet} 
     />
     {/*<Results 
-      articles_nyt={this.state.articles_nyt}
-      articles_mongo={this.state.articles_mongo}
+      articlesNyt={this.state.articlesNyt}
+      articlesMongo={this.state.articlesMongo}
       _mongoPost={this._mongoPost}
       _mongoDelete={this._mongoDelete}
     />
     <History 
-      articles_mongo={this.state.articles_mongo}
+      articlesMongo={this.state.articlesMongo}
       _mongoDelete={this._mongoDelete}
       _mongoGet={this._mongoGet}
     />*/}

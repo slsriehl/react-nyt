@@ -1,6 +1,6 @@
 //promise-based http request package
-const axios = require('axios'),
-      qs    = require('querystring');
+const axios   = require('axios'),
+      qs      = require('querystring');
 
 // Geocoder API
 // Helper functions for making API Calls
@@ -18,11 +18,15 @@ let helpers = {
         begin_date:  begin_date, 
         end_date:    end_date
       });
-    return axios.get('https://api.nytimes.com/svc/search/v2/articlesearch.json?' + data, {
-      headers: { 
-        'Access-Control-Allow-Origin': '*'
-      }
-    });
+      return axios.get('https://api.nytimes.com/svc/search/v2/articlesearch.json?' + data, {
+        headers: {
+          // "Access-Control-Allow-Methods": "OPTIONS, GET", 
+          "Content-Type": "application/jsonp", 
+          // "Access-Control-Allow-Headers": "Access-Control-Allow-Origin",
+          // "Access-Control-Allow-Origin": "*"
+        }
+      });
+    
   }
 }
 module.exports = helpers;

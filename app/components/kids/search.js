@@ -5,8 +5,8 @@ let Search = React.createClass({
   getInitialState: function() {
     return {
     	q: "",
-    	begin_date: "",
-    	end_date: ""
+    	begin_date: "19500101",
+    	end_date: "20171231"
     };
   }, 
 
@@ -37,8 +37,8 @@ let Search = React.createClass({
   	this.props._nytGet(this.state.q, this.state.begin_date, this.state.end_date);
   	this.setState({
   		q: "",
-  		begin_date: "",
-  		end_date: ""
+  		begin_date: "19500101",
+  		end_date: "20171231"
   	});
   },
 
@@ -75,7 +75,7 @@ let Search = React.createClass({
           	onChange={this._handleChangeE_D}
           /></label>
 
-          <button type="button" className="btn btn-large" onClick={this.props._nytGet}>Search Articles</button><br />
+          <button type="button" className="btn btn-large" onClick={this._handleSubmit}>Search Articles</button><br />
           <button type="button" className="btn btn-large" onClick={this._reset}>Clear Form</button><br />
         </div>{/* end col-sm-12 */}
       </div>{/* end row */}

@@ -1,11 +1,12 @@
 // Include Server Dependencies
-const express     = require("express"), 
-      bodyParser  = require("body-parser"), 
-      logger      = require("morgan"),
-      mongoose    = require("mongoose"),
+const express     = require('express'), 
+      bodyParser  = require('body-parser'), 
+      logger      = require('morgan'),
+      mongoose    = require('mongoose'),
+      axios       = require('axios'), 
       PORT        = process.env.PORT || 3000, 
       app         = express(),
-      Article     = require("./models/Article"),
+      Article     = require('./models/Article'),
       Promise     = require('bluebird');
 
 mongoose.Promise  = Promise;
@@ -43,8 +44,8 @@ db.once("open", function() {
 
 
 // Main "/" Route. This will redirect the user to our rendered React application
-app.get("/", function(req, res) {
-  
+app.get('/', function(req, res) {
+
   res.sendFile(__dirname + "/index.html");
 });
 
