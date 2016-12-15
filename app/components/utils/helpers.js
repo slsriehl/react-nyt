@@ -20,10 +20,7 @@ let helpers = {
       });
       return axios.get('https://api.nytimes.com/svc/search/v2/articlesearch.json?' + data, {
         headers: {
-          // "Access-Control-Allow-Methods": "OPTIONS, GET", 
-          "Content-Type": "application/jsonp", 
-          // "Access-Control-Allow-Headers": "Access-Control-Allow-Origin",
-          // "Access-Control-Allow-Origin": "*"
+          "Content-Type": "application/jsonp"
         }
       });
     

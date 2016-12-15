@@ -1,5 +1,8 @@
-1.  write the mongoose model and set up the server to route to mongoose.  set up mlab in heroku.
-2.  create search react component and mount it to the index page.
+1.  create main and search pages in react.  get api call to nyt working and console.log object to show on page.
+2.  write results page to show articlesNyt props from main.  create onClick functions in main/helpers and pass to results to hit mongo POST route with main/helpers props callback function and save selected articles to mongo.
+3.  write history page to load saved articles with mongo GET routes via props callback from main/helpers.
+4.  write mongo DELETE route via props callback from main/helpers and implement on results and history page via onClick functions on buttons.
+5.  style
 
 main
 	functions:
