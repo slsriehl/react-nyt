@@ -18,21 +18,22 @@ let Main = React.createClass({
     .then(function cbres(result) {
       let nytRes = result.data.response.docs;
       console.log(nytRes);
-        for(let i in nytRes) {
-          this.setState({articlesNyt: 
-            this.state.articlesNyt.concat({
-              web_url:  nytRes[i].web_url,
-              snippet:  nytRes[i].snippet.replace(/(<([^>]+)>)/ig, ""),
-              headline: nytRes[i].headline.main,
-              byline:   nytRes[i].byline.original,
-              pub_date: nytRes[i].pub_date
-            })
-          });
-        }
-      }.bind(this)).then(function cblog() {
-            console.log(this.state.articlesNyt)
-          }.bind(this));
-  },
+      nytRes.map((itemObj, index) => {
+        this.setState({articlesNyt: 
+          this.state.articlesNyt.concat({
+            web_url  : itemObj.web_url,
+            snippet  : itemObj.snippet.replace(/(<([^>]+)>)/ig, ""),
+            headline : itemObj.headline.main,
+            byline   : itemObj.byline.original,
+            pub_date : itemObj.pub_date
+          }) //concat
+        }); //setState
+      }); //map
+    }.bind(this)) //then cbres
+    .then(function cblog() {
+      console.log(this.state.articlesNyt)
+    }.bind(this)); //then cblog
+  }, // _nytGet
 
   _mongoPost: function(postArticle) {
     helpers._mongoPost(postArticle)
@@ -43,7 +44,25 @@ let Main = React.createClass({
 
   _mongoGet: function() {
     helpers._mongoGet()
-    .then();
+    .then(function cbres(result) {
+      console.log('cbres result ' + result);
+      result.map((itemObj, index) => {
+        this.setState({articlesMongo: 
+          this.state.articlesMongo.concat({
+            _id        : itemObj._id,  
+            web_url    : itemObj.web_url,
+            snippet    : itemObj.snippet,
+            headline   : itemObj.headline,
+            byline     : itemObj.byline,
+            pub_date   : itemObj.pub_date, 
+            date_saved : itemObj.date_saved 
+          }) //concat
+        }); //setState
+      }); //map
+    }.bind(this)) //then cbres
+    .then(function cblog() {
+      console.log(this.state.articlesMongo)
+    }.bind(this)); //then cblog
   },
 
   _mongoDelete: function(deleteArticle) {
@@ -53,30 +72,29 @@ let Main = React.createClass({
 
   render: function() {
     return (
-  <div>
-    <div className="container">
-      <div className="row">
-        <div className="col col-sm-12">
-          New York Times Article Search
-        </div>{/* end col-sm-12 */}
-      </div>{/* end row */}
-    </div>{/* end inner container */}
+      <div>
+        <div className="container">
+          <div className="row">
+            <div className="col col-sm-12">
+              <h2>New York Times Article Search</h2>
+            </div>{/* end col-sm-12 */}
+          </div>{/* end row */}
+        </div>{/* end inner container */}
 
-    <Search  
-      _nytGet={this._nytGet} 
-    />
-    <Results 
-      articlesNyt={this.state.articlesNyt}
-      articlesMongo={this.state.articlesMongo}
-      _mongoPost={this._mongoPost}
-    />
-    {/*<History 
-      articlesMongo={this.state.articlesMongo}
-      _mongoDelete={this._mongoDelete}
-      _mongoGet={this._mongoGet}
-    />*/}
-  {/* end overall container */}      
-  </div>
+        <Search  
+          _nytGet={this._nytGet} 
+        />
+        <Results 
+          articlesNyt={this.state.articlesNyt}
+          _mongoPost={this._mongoPost}
+        />
+        <History 
+          articlesMongo={this.state.articlesMongo}
+          _mongoDelete={this._mongoDelete}
+          _mongoGet={this._mongoGet}
+        />
+      {/* end overall container */}      
+      </div>
     );
   }
 });

@@ -50,8 +50,6 @@ ArticleSchema.methods.deleteArticle = function(req, res, article) {
 };
 
 ArticleSchema.methods.saveArticle = function(req, res, article) {
-	console.log('article from saveArticle method\n ' + article);
-	console.log('req.query from saveArticle method\n' + util.inspect(req.query));
 	return this
 		.save({article: req.query})
 		.then(function(data) {
@@ -63,20 +61,10 @@ ArticleSchema.methods.saveArticle = function(req, res, article) {
 
 ArticleSchema.methods.getArticles = function(req, res, article) {
 	return this.model('Article')
-	.find({_id: req.query.articleID})
-	.exec(function(err, data) {
-		console.log('viewNotes exec fired');
-		console.log(data);
-			Note.find({_id: {$in: data[0].notes}})
-			.sort({created: -1})
-			.exec(function(err, doc) {
-				if(err) {
-					console.log(err);
-				} else {
-					console.log('doc is ' + doc);
-					res.render('article.hbs', {article: data[0], notes: doc, showNotes: req.query.showNotes});
-				}
-			});
+	.find({}).lean()
+	.then(function(data) {
+		console.log('find getArticles ' + util.inspect(data));
+		res.json(data);
 	});
 };
 

@@ -54,6 +54,7 @@ app.get('/', function(req, res) {
 //show all saved articles
 app.get('/api/saved', function(req, res) {
   let article = new Article(req.query);
+  console.log('article from server ' + article);
   article.getArticles(req, res, article);
 });
 

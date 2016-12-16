@@ -26,7 +26,8 @@ let Results = React.createClass({
 		return (
 			<div className="container">
 				<div className="row">
-					<div className="col col-sm-12">Your search returned {this.props.articlesNyt.length} articles
+					<div className="col col-sm-12">
+						<h2>Your search returned {this.props.articlesNyt.length} articles</h2>
 					</div>{/* end col-sm-12 */}
 				</div>{/* end row */}
 				<div className="row">

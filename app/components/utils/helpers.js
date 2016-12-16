@@ -30,7 +30,7 @@ let helpers = {
     return axios.post(`/api/saved?${data}`);
   },
   _mongoGet: function() {
-    return axios.get('/api/saved');
+    return axios.get(`/api/saved`);
   }, 
   _mongoDelete: function(deleteArticle) {
     return axios.delete('/api/saved', qs.stringify({deleteArticle}));

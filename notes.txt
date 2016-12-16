@@ -27,11 +27,10 @@ search
 results
 	props functions:
 		front end mongo POST
-		front end mongo DELETE
 	props states:
 		articles from NYT GET
 	self states:
-		postArticle
+		postArticle - used a parameter/argument
 
 history
 	props functions:
