@@ -36,7 +36,9 @@ let Main = React.createClass({
 
   _mongoPost: function(postArticle) {
     helpers._mongoPost(postArticle)
-    .then();
+    .then(function cbmpost(result) {
+      console.log(`cbmpost result ${result}`);
+    }.bind(this));
   },
 
   _mongoGet: function() {
@@ -67,7 +69,6 @@ let Main = React.createClass({
       articlesNyt={this.state.articlesNyt}
       articlesMongo={this.state.articlesMongo}
       _mongoPost={this._mongoPost}
-      _mongoDelete={this._mongoDelete}
     />
     {/*<History 
       articlesMongo={this.state.articlesMongo}

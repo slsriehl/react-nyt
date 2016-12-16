@@ -18,14 +18,16 @@ let helpers = {
         begin_date:  begin_date, 
         end_date:    end_date
       });
-      return axios.get('https://api.nytimes.com/svc/search/v2/articlesearch.json?' + data, {
+      return axios.get(`https://api.nytimes.com/svc/search/v2/articlesearch.json?${data}`, {
         headers: {
           "Content-Type": "application/jsonp"
         }
       });
   },
   _mongoPost: function(postArticle) {
-    return axios.post('/api/saved', qs.stringify({postArticle}));
+    let data = qs.stringify(postArticle);
+    console.log(data);
+    return axios.post(`/api/saved?${data}`);
   },
   _mongoGet: function() {
     return axios.get('/api/saved');

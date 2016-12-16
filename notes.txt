@@ -20,7 +20,7 @@ search
 		get query
 		front end NYT GET
 	props states:
-		articles from NYT GET
+		none
 	states: query parameters for front end NYT GET
 	functions: reset form
 
@@ -30,7 +30,8 @@ results
 		front end mongo DELETE
 	props states:
 		articles from NYT GET
-		articles from mongo GET & DELETE (for button)
+	self states:
+		postArticle
 
 history
 	props functions:

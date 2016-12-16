@@ -11,10 +11,11 @@ let Results = React.createClass({
 		let mapArts = articles.map((itemObj, index) => {
 			return( 
        <div key={index}>
-        	<h3><a href="{itemObj.web_url}" target="_blank">{index + 1} {itemObj.headline}</a></h3>
+        	<h3><a href={itemObj.web_url} target="_blank">{index + 1} {itemObj.headline}</a></h3>
           <p>{itemObj.pub_date}</p>
           <p>{itemObj.byline}</p>
           <p>... {itemObj.snippet}...</p>
+          <button type="button" className="btn btn-large" onClick={() => {this.props._mongoPost(itemObj)}}>Save Article</button><br />
         </div>
       );
     });

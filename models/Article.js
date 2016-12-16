@@ -1,6 +1,10 @@
 const	mongoose 	= require('mongoose'), 
-			express 	= require('express'), 
+			Promise		= require('bluebird'), 
+			express 	= require('express'),
+			util			= require('util'),   
 			app 			= express();
+
+mongoose.Promise	= Promise;
 
 // Create a Schema class with mongoose
 var Schema = mongoose.Schema;
@@ -10,7 +14,7 @@ var ArticleSchema = new Schema ({
 		type: String,
 		trim: true
 	},
-	abstract: {
+	snippet: {
 		type: String,
 		trim: true
 	},
@@ -34,7 +38,7 @@ var ArticleSchema = new Schema ({
 	}
 });
 
-ArticleSchema.methods.retrieveArticles = function(res) {
+ArticleSchema.methods.deleteArticle = function(req, res, article) {
 	return this.model('Article').find({}).sort({date: -1}).exec(function(err, data) {
 		if(err) {
 			console.log(err);
@@ -45,20 +49,19 @@ ArticleSchema.methods.retrieveArticles = function(res) {
 	});
 };
 
-ArticleSchema.methods.saveArticle = function(req, res) {
-	return this.model('Article')
-		.find({_id: req.query.articleID})
-		.exec(function(err, data) {
-		if(err) {
-			console.log(err);
-		} else {
+ArticleSchema.methods.saveArticle = function(req, res, article) {
+	console.log('article from saveArticle method\n ' + article);
+	console.log('req.query from saveArticle method\n' + util.inspect(req.query));
+	return this
+		.save({article: req.query})
+		.then(function(data) {
 			console.log(data);
-			res.render('article.hbs', {article: data[0], showNotes: false});
-		}
-	});
+		}).catch(function(e) {
+			console.error('error');
+		});
 };
 
-ArticleSchema.methods.deleteArticle = function(req, res, Note, article) {
+ArticleSchema.methods.getArticles = function(req, res, article) {
 	return this.model('Article')
 	.find({_id: req.query.articleID})
 	.exec(function(err, data) {
