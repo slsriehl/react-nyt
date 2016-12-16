@@ -60,14 +60,14 @@ let Search = React.createClass({
           	id="query" 
           	onChange={this._handleChangeQ}
           /></label>
-          <label htmlFor="begin-date">Earliest Date (optional)
+          <label htmlFor="begin-date">Earliest Date
           <input 
           	value={this.state.begin_date}
           	type="text" 
           	id="begin-date" 
           	onChange={this._handleChangeB_D}
           /></label>
-          <label htmlFor="end-date">Latest Date (optional)
+          <label htmlFor="end-date">Latest Date
           <input 
           	value={this.state.end_date}
           	type="text" 

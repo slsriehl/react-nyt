@@ -14,7 +14,7 @@ let helpers = {
         q: q, 
         sort: "newest", 
         hl: true, 
-        fl: "web_url,abstract,headline,byline,pub_date", 
+        fl: "web_url,snippet,headline,byline,pub_date", 
         begin_date:  begin_date, 
         end_date:    end_date
       });
@@ -23,7 +23,15 @@ let helpers = {
           "Content-Type": "application/jsonp"
         }
       });
-    
+  },
+  _mongoPost: function(postArticle) {
+    return axios.post('/api/saved', qs.stringify({postArticle}));
+  },
+  _mongoGet: function() {
+    return axios.get('/api/saved');
+  }, 
+  _mongoDelete: function(deleteArticle) {
+    return axios.delete('/api/saved', qs.stringify({deleteArticle}));
   }
 }
 module.exports = helpers;

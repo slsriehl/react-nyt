@@ -1,5 +1,4 @@
-const React   = require('react'),
-      axios   = require('axios'),  
+const React   = require('react'),  
       helpers = require('./utils/helpers'), 
       Search  = require('./kids/search'), 
       Results = require('./kids/results'),
@@ -23,7 +22,7 @@ let Main = React.createClass({
           this.setState({articlesNyt: 
             this.state.articlesNyt.concat({
               web_url:  nytRes[i].web_url,
-              abstract: nytRes[i].abstract,
+              snippet:  nytRes[i].snippet.replace(/(<([^>]+)>)/ig, ""),
               headline: nytRes[i].headline.main,
               byline:   nytRes[i].byline.original,
               pub_date: nytRes[i].pub_date
@@ -35,18 +34,18 @@ let Main = React.createClass({
           }.bind(this));
   },
 
-  _mongoPost: function() {
-    return axios.post('/api/saved')
+  _mongoPost: function(postArticle) {
+    helpers._mongoPost(postArticle)
     .then();
   },
 
   _mongoGet: function() {
-    return axios.get('/api/saved')
+    helpers._mongoGet()
     .then();
   },
 
-  _mongoDelete: function() {
-    return axios.delete('/api/saved')
+  _mongoDelete: function(deleteArticle) {
+    helpers._mongoDelete(deleteArticle)
     .then();
   },
 
@@ -64,13 +63,13 @@ let Main = React.createClass({
     <Search  
       _nytGet={this._nytGet} 
     />
-    {/*<Results 
+    <Results 
       articlesNyt={this.state.articlesNyt}
       articlesMongo={this.state.articlesMongo}
       _mongoPost={this._mongoPost}
       _mongoDelete={this._mongoDelete}
     />
-    <History 
+    {/*<History 
       articlesMongo={this.state.articlesMongo}
       _mongoDelete={this._mongoDelete}
       _mongoGet={this._mongoGet}
