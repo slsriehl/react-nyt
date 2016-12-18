@@ -15,7 +15,12 @@ let Results = React.createClass({
           <p>{itemObj.pub_date}</p>
           <p>{itemObj.byline}</p>
           <p>... {itemObj.snippet}...</p>
-          <button type="button" className="btn btn-large" onClick={() => {this.props._mongoPost(itemObj)}}>Save Article</button><br />
+          <button 
+          	type="button" 
+          	className="btn btn-large" 
+          	onClick={() => {
+          		this.props._mongoPost(itemObj)
+          	}}>Save Article</button><br />
         </div>
       );
     });

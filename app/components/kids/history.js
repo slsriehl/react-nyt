@@ -2,9 +2,11 @@ const React = require('react');
 
 let History = React.createClass({
 
-
-	_showMongo: function() {
+	componentWillMount: function() {
 		this.props._mongoGet();
+	},
+	
+	_showMongo: function() {
 		let mapArts = this.props.articlesMongo.map((itemObj, index) => {
 			return( 
        <div key={index} data-id={itemObj._id}>
@@ -31,6 +33,7 @@ let History = React.createClass({
 				<div className="row">
 					<div className="col col-sm-12">
 						{this._showMongo()}
+
 					</div>{/* end col-sm-12 */}
 				</div>{/* end row */}
 			{/* end container */}

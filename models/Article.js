@@ -59,9 +59,9 @@ ArticleSchema.methods.saveArticle = function(req, res, article) {
 		});
 };
 
-ArticleSchema.methods.getArticles = function(req, res, article) {
+ArticleSchema.methods.getArticles = function(req, res) {
 	return this.model('Article')
-	.find({}).lean()
+	.find({})
 	.then(function(data) {
 		console.log('find getArticles ' + util.inspect(data));
 		res.json(data);

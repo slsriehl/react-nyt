@@ -2,7 +2,8 @@ const React   = require('react'),
       helpers = require('./utils/helpers'), 
       Search  = require('./kids/search'), 
       Results = require('./kids/results'),
-      History = require('./kids/history');
+      History = require('./kids/history'), 
+      util    = require('util');
 
 
 let Main = React.createClass({
@@ -36,17 +37,18 @@ let Main = React.createClass({
   }, // _nytGet
 
   _mongoPost: function(postArticle) {
-    helpers._mongoPost(postArticle)
-    .then(function cbmpost(result) {
-      console.log(`cbmpost result ${result}`);
-    }.bind(this));
+    helpers._mongoPost(postArticle);
+    this._mongoGet().bind(this);
   },
 
   _mongoGet: function() {
+    this.setState({
+      articlesMongo: []
+    });
     helpers._mongoGet()
     .then(function cbres(result) {
-      console.log('cbres result ' + result);
-      result.map((itemObj, index) => {
+      console.log('cbres result ' + util.inspect(result));
+      result.data.map((itemObj, index) => {
         this.setState({articlesMongo: 
           this.state.articlesMongo.concat({
             _id        : itemObj._id,  
@@ -61,7 +63,7 @@ let Main = React.createClass({
       }); //map
     }.bind(this)) //then cbres
     .then(function cblog() {
-      console.log(this.state.articlesMongo)
+      console.log(this.state.articlesMongo);
     }.bind(this)); //then cblog
   },
 
