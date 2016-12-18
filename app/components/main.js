@@ -37,8 +37,8 @@ let Main = React.createClass({
   }, // _nytGet
 
   _mongoPost: function(postArticle) {
-    helpers._mongoPost(postArticle);
-    this._mongoGet().bind(this);
+    helpers._mongoPost(postArticle)
+    .then(this._mongoGet());
   },
 
   _mongoGet: function() {
@@ -69,7 +69,7 @@ let Main = React.createClass({
 
   _mongoDelete: function(deleteArticle) {
     helpers._mongoDelete(deleteArticle)
-    .then();
+    .then(this._mongoGet());
   },
 
   render: function() {

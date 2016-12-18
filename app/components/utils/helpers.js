@@ -26,15 +26,15 @@ let helpers = {
   },
   _mongoPost: function(postArticle) {
     let data = qs.stringify(postArticle);
-    console.log(data);
     return axios.post(`/api/saved?${data}`);
   },
   _mongoGet: function() {
-    console.log('repeating get request at helpers');
     return axios.get('/api/saved');
   }, 
   _mongoDelete: function(deleteArticle) {
-    return axios.delete('/api/saved', qs.stringify({deleteArticle}));
+    let data = qs.stringify(deleteArticle);
+    console.log(data);
+    return axios.delete(`/api/saved?${data}`);
   }
 }
 module.exports = helpers;

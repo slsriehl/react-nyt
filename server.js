@@ -54,20 +54,19 @@ app.get('/', function(req, res) {
 //show all saved articles
 app.get('/api/saved', function(req, res) {
   let article = new Article(req.query);
-  console.log('articleloop');
   article.getArticles(req, res);
 });
 
 //save an article
 app.post('/api/saved', function(req, res) {
   let article = new Article(req.query);
-  article.saveArticle(req, res, article);
+  article.saveArticle(req, res);
 });
 
 //delete a saved article
 app.delete('/api/saved', function(req, res) {
   let article = new Article(req.query);
-  article.deleteArticle(req, res, article);
+  article.deleteArticle(req, res);
 });
 
 // -------------------------------------------------

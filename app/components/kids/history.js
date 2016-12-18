@@ -5,7 +5,7 @@ let History = React.createClass({
 	componentWillMount: function() {
 		this.props._mongoGet();
 	},
-	
+
 	_showMongo: function() {
 		let mapArts = this.props.articlesMongo.map((itemObj, index) => {
 			return( 
@@ -14,7 +14,12 @@ let History = React.createClass({
           <p>{itemObj.pub_date}</p>
           <p>{itemObj.byline}</p>
           <p>... {itemObj.snippet}...</p>
-          <button type="button" className="btn btn-large" onClick={() => {this.props._mongoDelete(itemObj)}}>Delete Article</button><br />
+          <button 
+          	type="button" 
+          	className="btn btn-large" 
+          	onClick={() => {
+          		this.props._mongoDelete({_id: itemObj._id})
+          	}}>Delete Article</button><br />
         </div>
       );
     });

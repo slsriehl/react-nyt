@@ -38,13 +38,12 @@ var ArticleSchema = new Schema ({
 	}
 });
 
-ArticleSchema.methods.deleteArticle = function(req, res, article) {
-	return this.model('Article').find({}).sort({date: -1}).exec(function(err, data) {
+ArticleSchema.methods.deleteArticle = function(req, res) {
+	return this.model('Article')
+	.findByIdAndRemove({_id: req.query._id})
+	.exec(function(err, deleted) {
 		if(err) {
 			console.log(err);
-		} else {
-			console.log(data);
-			res.render('index.hbs', { articles: data});
 		}
 	});
 };

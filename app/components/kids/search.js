@@ -10,12 +10,6 @@ let Search = React.createClass({
     };
   }, 
 
-//setState q from input
-
-  
-  _reset: function() {
-  {/* reset inputs */}
-  }, 
   _handleChangeQ: function(event) {
   	this.setState({
   		q: event.target.value,
@@ -76,7 +70,7 @@ let Search = React.createClass({
           /></label>
 
           <button type="button" className="btn btn-large" onClick={this._handleSubmit}>Search Articles</button><br />
-          <button type="button" className="btn btn-large" onClick={this._reset}>Clear Form</button><br />
+
         </div>{/* end col-sm-12 */}
       </div>{/* end row */}
       {/* end container */}
