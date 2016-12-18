@@ -23,11 +23,12 @@ app.use(express.static("./public"));
 // -------------------------------------------------
 
 // MongoDB configuration (Change this URL to your own DB)
-mongoose.connect("mongodb://localhost/nyt_db");
+mongoose.connect("mongodb://heroku_zxpp617k:tsh16figu9pkbvr4e280bmk13t@ds133378.mlab.com:33378/heroku_zxpp617k");
 var db = mongoose.connection;
 
 // mongolab-octagonal-86909 as MONGODB_URI
 //MONGODB_URI: mongodb://heroku_zxpp617k:tsh16figu9pkbvr4e280bmk13t@ds133378.mlab.com:33378/heroku_zxpp617k
+//mongo db production: mongodb://localhost/nyt_db
 
 
 db.on("error", function(err) {
