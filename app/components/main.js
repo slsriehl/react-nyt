@@ -14,7 +14,9 @@ let Main = React.createClass({
     };
   }, 
   _nytGet: function(q, begin_date, end_date) {
-    console.log(this.state.articlesNyt);
+    this.setState({
+      articlesNyt: []
+    });
     helpers._nytGet(q, begin_date, end_date)
     .then(function cbres(result) {
       let nytRes = result.data.response.docs;
@@ -75,10 +77,10 @@ let Main = React.createClass({
   render: function() {
     return (
       <div>
-        <div className="container">
+        <div className="container container-title text-right">
           <div className="row">
             <div className="col col-sm-12">
-              <h2>New York Times Article Search</h2>
+              <h2><i className="fa fa-scissors"></i>   nyt clipper</h2>
             </div>{/* end col-sm-12 */}
           </div>{/* end row */}
         </div>{/* end inner container */}

@@ -40,38 +40,43 @@ let Search = React.createClass({
     return (		
 
 		<div className="container">
-      <div className="row">
-        <div className="col col-sm-12">
-              Search Results
+      <div className="row row-search-title">
+        <div className="col col-sm-12 col-search-title">
+              <h2><i className="fa fa-search"></i>  nyt search</h2>
         </div>{/* end col-sm-12 */}
       </div>{/* end row */}
-      <div className="row">
-        <div className="col col-sm-12">
-          <label htmlFor="query">Search for
+      <div className="row row-search-results">
+        <div className="col col-sm-3 col-search-results">
+          <label htmlFor="query">Search for</label><br />
           <input 
           	value={this.state.q}
           	type="text" 
           	id="query" 
           	onChange={this._handleChangeQ}
-          /></label>
-          <label htmlFor="begin-date">Earliest Date
+          />
+        </div>{/* /col-sm-3 */}
+        <div className="col col-sm-3 col-search-results">
+          <label htmlFor="begin-date">Earliest Date</label><br />
           <input 
           	value={this.state.begin_date}
           	type="text" 
           	id="begin-date" 
           	onChange={this._handleChangeB_D}
-          /></label>
-          <label htmlFor="end-date">Latest Date
+          />
+        </div>{/* /col-sm-3 */}
+        <div className="col col-sm-3 col-search-results">
+          <label htmlFor="end-date">Latest Date</label><br />
           <input 
           	value={this.state.end_date}
           	type="text" 
           	id="end-date" 
           	onChange={this._handleChangeE_D}
-          /></label>
-
-          <button type="button" className="btn btn-large" onClick={this._handleSubmit}>Search Articles</button><br />
-
-        </div>{/* end col-sm-12 */}
+          />
+        </div>{/* /col-sm-3 */}
+        <div className="col col-sm-3 col-search-results">
+        	<label></label><br />
+          <button type="button" className="btn btn-large btn-this" onClick={this._handleSubmit}>Search Articles</button><br />
+        </div>{/* end col-sm-3 */}
       </div>{/* end row */}
       {/* end container */}
     </div>
