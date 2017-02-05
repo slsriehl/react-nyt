@@ -10,8 +10,14 @@ let Main = React.createClass({
   getInitialState: function() {
     return {
       articlesNyt: [],
-      articlesMongo:[]
+      articlesMongo:[],
+      toggle: false
     };
+  }, 
+  _toggleResults: function() {
+    this.setState({
+      toggle: true
+    });
   }, 
   _nytGet: function(q, begin_date, end_date) {
     this.setState({
@@ -87,10 +93,12 @@ let Main = React.createClass({
 
         <Search  
           _nytGet={this._nytGet} 
+          _toggleResults={this._toggleResults}
         />
         <Results 
           articlesNyt={this.state.articlesNyt}
           _mongoPost={this._mongoPost}
+          toggle={this.state.toggle}
         />
         <History 
           articlesMongo={this.state.articlesMongo}
